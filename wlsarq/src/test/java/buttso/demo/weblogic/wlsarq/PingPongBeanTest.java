@@ -1,12 +1,12 @@
 package buttso.demo.weblogic.wlsarq;
 
-import com.bea.core.repackaged.springframework.util.Assert;
 import javax.inject.Inject;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -33,8 +33,8 @@ public class PingPongBeanTest {
 
     @Test
     public void test_ping_pong_bean() {
-        Assert.notNull(ppb, "PingPongBean was not injected, is null");
-        Assert.isTrue("pong".equals(ppb.ping()), "The ping didn't pong");
+        assertNotNull("PingPongBean was not injected, is null", ppb );
+        assertTrue("The ping didn't pong", "pong".equals(ppb.ping()));
     }
 
 }

@@ -1,0 +1,6 @@
+weblogic:
+  image: 1221-domain:latest
+  ports:
+      - "7001:7001"
+  environment:
+      - PRODUCTION_MODE=dev

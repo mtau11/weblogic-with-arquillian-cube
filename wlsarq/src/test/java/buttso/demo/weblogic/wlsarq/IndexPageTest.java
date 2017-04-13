@@ -48,7 +48,7 @@ public class IndexPageTest {
         } catch (Exception e) {
             // Swallow me whole
         } finally {
-            webClient.closeAllWindows();
+            webClient.close();
         }
     }
 
@@ -67,7 +67,7 @@ public class IndexPageTest {
         } catch (Exception e) {
             // Swallowed, doh!
         } finally {
-            webClient.closeAllWindows();
+            webClient.close();
         }
     }
 }

@@ -1,73 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>buttso.demo.weblogic</groupId>
     <artifactId>wlsarq</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
     <name>wlsarq</name>
-  
+
     <properties>
+        <arquillian.cube.autostart>true</arquillian.cube.autostart>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>  
-  
+        <version.arquillian>1.1.7.Final</version.arquillian>
+        <version.arquillian-cube>1.1.0</version.arquillian-cube>
+        <version.arquillian-universe>1.1.13.3</version.arquillian-universe>
+        <version.arquillian-wls-remote-10.3>1.0.1.Final</version.arquillian-wls-remote-10.3>
+        <version.htmlunit>2.26</version.htmlunit>
+        <version.javaee>7.0</version.javaee>
+        <version.junit>4.12</version.junit>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jboss.arquillian</groupId>
-                <artifactId>arquillian-bom</artifactId>
-                <version>1.1.5.Final</version>
+                <groupId>org.arquillian</groupId>
+                <artifactId>arquillian-universe</artifactId>
+                <version>${version.arquillian-universe}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
-  
+
     <dependencies>
-        <dependency>
-            <groupId>com.oracle.weblogic</groupId>
-            <artifactId>weblogic-server-pom</artifactId>
-            <version>12.1.3-0-0</version>
-            <type>pom</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
-            <scope>provided</scope>
-        </dependency>
-        
         <!-- ########################## -->
         <!-- #### Test Dependencies ### -->
         <!-- ########################## -->
         <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>${version.javaee}</version>
+        </dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.1</version>
+            <version>${version.junit}</version>
             <scope>test</scope>
-        </dependency>  
+        </dependency>
+
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.15</version>
+            <version>${version.htmlunit}</version>
             <scope>test</scope>
         </dependency>
-        
+
         <!-- ###################################### -->
         <!-- #### Arquillian Test  Dependencies ### -->
         <!-- ###################################### -->
         <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
+            <groupId>org.arquillian.universe</groupId>
+            <artifactId>arquillian-cube-docker</artifactId>
             <scope>test</scope>
-        </dependency>        
+            <type>pom</type>
+        </dependency>
+
         <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-wls-remote-12.1.2</artifactId>
-            <version>1.0.0.Alpha3</version>
+            <groupId>org.arquillian.universe</groupId>
+            <artifactId>arquillian-junit</artifactId>
             <scope>test</scope>
-        </dependency>      
+            <type>pom</type>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -80,7 +85,7 @@
                 <directory>src/main/webapp</directory>
             </testResource>
         </testResources>
-        
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -101,8 +106,38 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18</version>
-            </plugin>      
+                <version>2.19.1</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <arquillian.launch>${arquillian.launch}</arquillian.launch>
+                        <arquillian.cube.autostart>${arquillian.cube.autostart}</arquillian.cube.autostart>
+                    </systemPropertyVariables>
+                    <excludes>
+                        <exclude>**/persistence/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>weblogic</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <arquillian.launch>weblogic</arquillian.launch>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.arquillian.container</groupId>
+                    <artifactId>arquillian-wls-remote-10.3</artifactId>
+                    <version>${version.arquillian-wls-remote-10.3}</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+    </profiles>
 </project>

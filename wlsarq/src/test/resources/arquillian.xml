@@ -1,19 +1,32 @@
 <?xml version="1.0"?>
-<arquillian
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://jboss.org/schema/arquillian"
-    xsi:schemaLocation="http://jboss.org/schema/arquillian
-                http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
-    <!--
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://jboss.org/schema/arquillian"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
+    http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+    <defaultProtocol type="Servlet 3.0"/>
+
     <engine>
-        <property name="deploymentExportPath">target/</property>
+        <!-- Path of where deployment archives are stored. -->
+        <property name="deploymentExportPath">target/deployment</property>
     </engine>
-    -->
-    
+
+    <extension qualifier="cube">
+        <property name="connectionMode">STARTORCONNECTANDLEAVE</property>
+    </extension>
+
+    <extension qualifier="docker">
+        <property name="autoStartContainers">true</property>
+        <property name="dockerContainersFile">docker-compose.yml</property>
+        <property name="serverVersion">1.12</property>
+        <property name="serverUri">unix:///var/run/docker.sock</property>
+        <property name="tlsVerify">false</property>
+    </extension>
+
     <container qualifier="weblogic" default="true">
-        <defaultProtocol type="Servlet 3.0" />    
         <configuration>
-            <property name="wlHome">/Users/sbutton/Oracle/Middleware/wlserver</property>
+            <property name="wlHome">/u01/oracle/wlserver</property>
+            <property name="jmxClientJarPath">/u01/oracle/wlserver/server/lib/wlthint3client.jar</property>
             <property name="adminUrl">t3://localhost:7001</property>
             <property name="adminUserName">weblogic</property>
             <property name="adminPassword">welcome1</property>
