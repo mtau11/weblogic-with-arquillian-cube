@@ -53,12 +53,9 @@ The 10.3 container was chosen because it uses the WebLogic Deployer to deploy te
              <arquillian.launch>weblogic</arquillian.launch>
          </properties>
          <dependencies>
-             <dependency>
-                 <groupId>org.jboss.arquillian.container</groupId>
-                 <artifactId>arquillian-wls-remote-10.3</artifactId>
-                 <version>${version.arquillian-wls-remote-10.3}</version>
-                 <scope>test</scope>
-             </dependency>
+             <groupId>org.jboss.arquillian.container</groupId>
+             <artifactId>arquillian-wls-remote-rest</artifactId>
+             <version>${version.arquillian-wls-remote-rest}</version>
          </dependencies>
      </profile>
 </profiles>     
@@ -88,9 +85,7 @@ Finally, the *weblogic* container definition which is used by the WebLogic Remot
 ```xml
 <container qualifier="weblogic" default="true">
     <configuration>
-        <property name="wlHome">/u01/oracle/wlserver</property>
-        <property name="jmxClientJarPath">/u01/oracle/wlserver/server/lib/wlthint3client.jar</property>
-        <property name="adminUrl">t3://localhost:7001</property>
+        <property name="adminUrl">http://localhost:7001</property>
         <property name="adminUserName">weblogic</property>
         <property name="adminPassword">welcome1</property>
         <property name="target">AdminServer</property>
