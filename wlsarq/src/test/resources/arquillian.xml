@@ -25,9 +25,7 @@
 
     <container qualifier="weblogic" default="true">
         <configuration>
-            <property name="wlHome">/u01/oracle/wlserver</property>
-            <property name="jmxClientJarPath">/u01/oracle/wlserver/server/lib/wlthint3client.jar</property>
-            <property name="adminUrl">t3://localhost:7001</property>
+            <property name="adminUrl">http://localhost:7001</property>
             <property name="adminUserName">weblogic</property>
             <property name="adminPassword">welcome1</property>
             <property name="target">AdminServer</property>

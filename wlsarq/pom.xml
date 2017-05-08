@@ -14,7 +14,7 @@
         <version.arquillian>1.1.7.Final</version.arquillian>
         <version.arquillian-cube>1.1.0</version.arquillian-cube>
         <version.arquillian-universe>1.1.13.3</version.arquillian-universe>
-        <version.arquillian-wls-remote-10.3>1.0.1.Final</version.arquillian-wls-remote-10.3>
+        <version.arquillian-wls-remote-rest>1.0.1.Final</version.arquillian-wls-remote-rest>
         <version.htmlunit>2.26</version.htmlunit>
         <version.javaee>7.0</version.javaee>
         <version.junit>4.12</version.junit>
@@ -132,8 +132,8 @@
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-wls-remote-10.3</artifactId>
-                    <version>${version.arquillian-wls-remote-10.3}</version>
+                    <artifactId>arquillian-wls-remote-rest</artifactId>
+                    <version>${version.arquillian-wls-remote-rest}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
